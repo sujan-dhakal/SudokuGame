@@ -78,6 +78,10 @@ class Sudoku{
 				print("")
 				print("Congratulations!!! You Solved the Sudoku.")
 				print("")
+				printGame()
+				print("")
+				print("********************************************************************")
+				print("")
 			}
 		}
 	}
@@ -87,29 +91,6 @@ class Sudoku{
 			return true
 		}
 		return false;
-	}
-
-	func updateSudoku(row: Int, col: Int, num: Int) -> String{
-		if (isChangeAble[row-1][col-1]){
-			let validity:Int = isValidNum(row:row, col:col, num:num)
-			if (validity == -1) {
-				return "Repeated Number in the same row."
-			} else if (validity == -2){
-				return "Repeated Number in the same column."
-			}  else if (validity == -3){
-				return "Repeated Number in the 3*3 grid."
-			} else {
-				sudoku[row-1][col-1] = Character(String(num))
-				return "Updated \(num) at (\(row), \(col))"
-			}
-		}
-		return "Predefined cell cannot be updated."
-	}
-
-	func printGame(){
-		for row in sudoku{
-			print(row)
-		}
 	}
 
 	func isValidNum(row: Int, col: Int, num: Int) -> Int{
@@ -140,6 +121,33 @@ class Sudoku{
         }
 
 		return 0
+	}
+
+	func updateSudoku(row: Int, col: Int, num: Int) -> String{
+		if (isChangeAble[row-1][col-1]){
+			let validity:Int = isValidNum(row:row, col:col, num:num)
+			if (validity == -1) {
+				return "Repeated Number in the same row."
+			} else if (validity == -2){
+				return "Repeated Number in the same column."
+			}  else if (validity == -3){
+				return "Repeated Number in the 3*3 grid."
+			} else {
+				sudoku[row-1][col-1] = Character(String(num))
+				return "Updated \(num) at (\(row), \(col))"
+			}
+		}
+		return "Predefined cell cannot be updated."
+	}
+
+	func printGame(){
+		for row in sudoku{
+			var r:String = ""
+			for col in row {
+				r += String(col) + " "
+			}
+			print(r)
+		}
 	}
 
 	func isSolved() -> Bool{
@@ -236,7 +244,7 @@ class Main{
 				level += 1
 			}
 		}
-		print("Thank you playing Sudoku. Hope you enjoyed!!!")
+		print("Thank you for playing Sudoku. Hope you enjoyed!!!")
 	}
 }
 
