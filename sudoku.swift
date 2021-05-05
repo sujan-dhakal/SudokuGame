@@ -108,14 +108,17 @@ class Sudoku{
 			}
 		}
 
-        // check 3*3 grid validity
+		// check 3*3 grid validity
+		var gridSet = Set<Character>() 
         let br:Int = ((row-1)/3) * 3;
         let bc:Int = ((col-1)/3) * 3;
 
         for r in br...br+2{
         	for c in bc...bc+2{
-        		if (sudoku[r][c]==toInsert){
+        		if (gridSet.contains(toInsert)){
         			return -3
+        		} else {
+        			gridSet.insert(sudoku[r][c])
         		}
         	}
         }
