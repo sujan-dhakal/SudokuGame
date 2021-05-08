@@ -1,8 +1,8 @@
 /**
 * The Sudoku Game!!! Boost your brain!!!
 * Author -  Sujan Dhakal (dhakals@lafayette.edu)
-			Utsav Shrestha (shresthu@lafayette.edu)
-			Lafayette College '21
+         Utsav Shrestha (shresthu@lafayette.edu)
+         Lafayette College '21
 * Version - 1.0
 * 
 * Released under MIT License
@@ -24,6 +24,9 @@
 */
 
 
+/**
+ This is the main class Sudoku which provides the framework and function for a Sudoku object to be created each time the game is run.
+ */
 class Sudoku{
 	var isGameOver:Bool = false
 	var isChangeAble = [[Bool]](repeating: [Bool](repeating:true, count: 9), count: 9)
@@ -39,6 +42,12 @@ class Sudoku{
 			}
 		}
 	}
+    
+    /**
+     The runGame function has a while loop that runs until the game is over. It prints the sudoku grid, reads and validates the user input and then print out the updated grid.
+     Parameter: none
+     Return Type: void
+     */
 
 	func runGame(){
 		while(!isGameOver){
@@ -85,6 +94,18 @@ class Sudoku{
 			}
 		}
 	}
+    
+    /**
+     The checkInputNum function checks whether the user input (Number and x-y coordinates) are valid or not.
+     Parameter:
+        row: the row in which the number is being inserted
+        col: the col in which the number is being inserted
+        num: the entered number
+     Return Type: bool
+     Returns:
+        true: if the row, column, and number are valid, i.e between 1 to 9
+        false: if the row, column, and number are not valid, not between 1 to 9
+     */
 
 	func checkInputNum(row: Int, col: Int, num: Int) -> Bool{
 		if ((row >= 1 && row <= 9) && (col >= 1 && col <= 9) && (num >= 1 && num <= 9)) {
@@ -92,6 +113,19 @@ class Sudoku{
 		}
 		return false;
 	}
+    
+    /**
+     The isValidNum function checks whether the user entered number is already present in the same row, column or the corresponding 3x3 grid.
+     Parameters:
+        row: the row in which the number is being inserted
+        col: the col in which the number is being inserted
+        num: the entered number
+    Returns: Int
+        -1 : if the row already contains the entered number
+        -2 : if th column already contains the entered number
+        -3 : if the corresponding 3x3 grid already contains the entered number
+                
+     */
 
 	func isValidNum(row: Int, col: Int, num: Int) -> Int{
 		let toInsert:Character = Character(String(num))
@@ -126,6 +160,21 @@ class Sudoku{
 		return 0
 	}
 
+    /**
+     The updateSudoku function takes in the user input, checks if the position is changeable or not, checks whether the input is valid or not, and if everything is valid, it updates the sudoku grid.
+     Parameters:
+        row: the row in which the number is being inserted
+        col: the col in which the number is being inserted
+        num: the entered number
+    Return Type: String
+    Returns:
+        "Repeated Number in the same row" : if the row already contains the entered number
+        "Repeated Number in the same column" : if the column already contains the entered number
+        "Repeated Number in the 3x3 grid" : if the corresponding 3x3 grid already contains the entered number
+        "Updated (num) at (row) (col)" : If update is successful
+        "Predefined cell cannot be updated" : If none of the above conditions are true
+                
+     */
 	func updateSudoku(row: Int, col: Int, num: Int) -> String{
 		if (isChangeAble[row-1][col-1]){
 			let validity:Int = isValidNum(row:row, col:col, num:num)
@@ -143,6 +192,11 @@ class Sudoku{
 		return "Predefined cell cannot be updated."
 	}
 
+    /**
+     The printGame method prints out the current state of the sudoku 9x9 grid.
+     Parameter: none
+     Return Type: void
+     */
 	func printGame(){
 		for row in sudoku{
 			var r:String = ""
@@ -153,6 +207,14 @@ class Sudoku{
 		}
 	}
 
+    /**
+     The isSolved method returns true if the game has been solved.
+     Parameter: none
+     Return Type: bool
+     Returns:
+        true: if all the coordinates in the grid has been completed
+        false: if there are blank space(s) in the grid
+     */
 	func isSolved() -> Bool{
 		for row in sudoku{
 			if (row.contains("_")){
@@ -162,6 +224,10 @@ class Sudoku{
 		return true
 	}
 }
+
+/**
+ The Main class, as the name suggests, is the main class. An instance of this class is created when the game starts and the run function is called, which runs the whole game. The class provides different levels to the game.
+ */
 
 class Main{
 	var level:Int = 1
@@ -215,7 +281,13 @@ class Main{
 								["7", "8", "6", "2", "3", "5", "9", "1", "4"],
 								["1", "5", "4", "7", "9", "6", "8", "2", "3"],
 								["2", "3", "9", "8", "4", "1", "5", "6", "7"]]
-	func run(){
+	
+    /**
+     The run function starts the game by creating an object of class Sudoku with level=1 and creates new levels as the player progresses.
+     Parameter: none
+     Return type: void
+     */
+    func run(){
 		print("")
 		print("Hello, Welcome to Sudoku Game.")
 		print("")
